@@ -7,8 +7,8 @@ import AuthorizationError from '../../exceptions/AuthorizationError';
 export default class NotesService {
   constructor(private readonly _note: typeof Note) { }
 
-  async findAll(uId: string, { title='', isArchived=false, limit=10, offset=0 }): Promise<NoteInterface[]> {
-    return await this._note.find({ title: { $regex: `.*${title}.*` }, isArchived, user: uId }).sort({ isPinned: -1 }).skip(offset).limit(limit).exec();
+  async findAll(uId: string, { search='', isArchived=false, limit=10, offset=0 }): Promise<NoteInterface[]> {
+    return await this._note.find({ title: { $regex: `.*${search}.*`, $options : 'i' }, isArchived, user: uId }).sort({ isPinned: -1 }).skip(offset).limit(limit).exec();
   }
 
   async verifyOwner(noteId: string, uId: string) {
@@ -106,6 +106,6 @@ export default class NotesService {
   }
 
   async countDocuments(uId: string, { search='', isArchived=false }): Promise<number> {
-    return await this._note.countDocuments({ title: { $regex: `.*${search}.*` }, isArchived, user: uId }).exec();
+    return await this._note.countDocuments({ title: { $regex: `.*${search}.*`, $options : 'i' }, isArchived, user: uId }).exec();
   }
 }
