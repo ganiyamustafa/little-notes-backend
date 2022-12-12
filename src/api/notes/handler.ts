@@ -133,7 +133,9 @@ class NotesHandler {
       return res.status(200).send({
         status: 'success',
         message: "success update note",
-        data: note.id
+        data: {
+          noteId: note.id
+        }
       });
     } catch(error) {
       if (error instanceof ClientError) {

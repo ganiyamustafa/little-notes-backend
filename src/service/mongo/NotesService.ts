@@ -76,14 +76,14 @@ export default class NotesService {
     }
   }
 
-  async update(id: string, {title, description, isPinned}): Promise<NoteInterface> {
+  async update(id: string, {title, description, isPinned, isArchived}): Promise<NoteInterface> {
     try {
       if (!isValidObjectId(id)) {
         throw new NotFoundError(`note not found`);
       }
 
       const updatedAt = new Date();
-      const note = await this._note.findByIdAndUpdate(id, {title, description, isPinned, updatedAt}).exec();
+      const note = await this._note.findByIdAndUpdate(id, {title, description, isPinned, isArchived, updatedAt}).exec();
 
       if (!note) {
         throw new NotFoundError(`note not found`);

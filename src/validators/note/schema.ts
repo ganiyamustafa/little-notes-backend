@@ -8,7 +8,8 @@ const PostNotePayloadSchema = joi.object({
 const PutNotePayloadSchema = joi.object({
   title: joi.string(),
   description: joi.string(),
-  isPinned: joi.boolean()
+  isPinned: joi.boolean(),
+  isArchived: joi.boolean()
 })
 
 export { PostNotePayloadSchema, PutNotePayloadSchema }
