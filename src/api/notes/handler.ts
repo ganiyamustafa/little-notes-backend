@@ -51,7 +51,7 @@ class NotesHandler {
     const meta = { 
       page, 
       limit, 
-      'total_notes': total_notes,
+      'total_data': total_notes,
       'last_page': Math.ceil(total_notes / limit) || 1
     }
 
