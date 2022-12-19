@@ -43,7 +43,7 @@ class GroupsService {
   async findNotes(id: string, { search='', limit=10, offset=0 }): Promise<GroupInterface> {
     const groupNotes = this._group.findById(id).populate({ 
       path: 'notes',
-      select: '_id title description isPinned',
+      select: '_id title description isPinned user',
       match: { title: { $regex: `.*${search}.*`} },
       options: {
         limit: limit,
@@ -51,6 +51,8 @@ class GroupsService {
         skip: offset
       }
     }).exec();
+
+    console.log('aaa');
 
     if (!groupNotes) {
       throw new NotFoundError('group not found');

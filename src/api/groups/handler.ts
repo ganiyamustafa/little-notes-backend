@@ -150,7 +150,7 @@ class GroupHandler {
 
       return res.status(500).send({
         status: 'error',
-        message: error.message,
+        message: 'server error',
       });
     }
   }
