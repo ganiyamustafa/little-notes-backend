@@ -94,9 +94,7 @@ class GroupHandler {
 
       return res.status(200).send({
         status: 'success',
-        data: {
-          notes: group.notes
-        },
+        data: group.notes,
         meta
       });
     } catch (error) {

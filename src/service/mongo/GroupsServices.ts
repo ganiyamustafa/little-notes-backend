@@ -12,7 +12,7 @@ class GroupsService {
       { 
         name: { $regex: `.*${search}.*` }, 
         $or: [{ owner: uId },  { members: { $in: [uId] }}] 
-    }).skip(offset).limit(limit).exec();
+    }).skip(offset).limit(limit).populate('owner', 'id username').exec();
   }
 
   async findOne(id: string, { populate = '' }): Promise<GroupInterface> {
