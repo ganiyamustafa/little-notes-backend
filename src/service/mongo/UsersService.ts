@@ -5,6 +5,7 @@ import NotFoundError from '../../exceptions/NotFoundError';
 import { compare } from 'bcrypt';
 import { hash } from 'bcrypt';
 import { UserInterface, User } from '../../models/UserSchema';
+import { isValidObjectId } from 'mongoose';
 
 export default class UsersService {
   constructor(private _user: typeof User) {}
@@ -51,6 +52,20 @@ export default class UsersService {
 
   async findUserByEmail(email): Promise<UserInterface> {
     const user = await this._user.findOne({ email: email }).exec();
+
+    if (!user) {
+      throw new NotFoundError(`user not found`);
+    }
+
+    return user;
+  }
+
+  async findUserById(id): Promise<UserInterface> {
+    if (!isValidObjectId(id)) {
+      throw new NotFoundError(`user not found`);
+    }
+
+    const user = await this._user.findById(id).exec();
 
     if (!user) {
       throw new NotFoundError(`user not found`);
