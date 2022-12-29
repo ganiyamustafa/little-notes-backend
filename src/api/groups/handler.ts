@@ -52,9 +52,7 @@ class GroupHandler {
       
       return res.status(200).send({
         status: 'success',
-        data: {
-          group: group
-        }
+        data: group
       });
     } catch (error) {
       if (error instanceof ClientError) {
@@ -159,9 +157,9 @@ class GroupHandler {
     try {
       this._validator.validatePostGroupPayload(req.body);
       const { userId: credentialId } = req['auth'];
-      const { name, members } = req.body;
+      const { name, notes } = req.body;
 
-      const group = await this._service.create({ owner: credentialId, name, members })
+      const group = await this._service.create({ owner: credentialId, name, notes })
       
       return res.status(201).send({
         status: 'success',

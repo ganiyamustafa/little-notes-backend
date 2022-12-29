@@ -2,7 +2,7 @@ import joi from 'joi';
 
 const PostGroupPayloadSchema = joi.object({
   name: joi.string().required(),
-  members: joi.array()
+  notes: joi.array()
 });
 
 const PutGroupPayloadSchema = joi.object({

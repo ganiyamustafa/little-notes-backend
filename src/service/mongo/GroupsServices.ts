@@ -43,7 +43,11 @@ class GroupsService {
   async findNotes(id: string, { search='', limit=10, offset=0 }): Promise<GroupInterface> {
     const groupNotes = this._group.findById(id).populate({ 
       path: 'notes',
-      select: '_id title description isPinned user',
+      select: '_id title description isPinned user createdAt',
+      populate: {
+        path: 'user',
+        select: '_id username'
+      },
       match: { title: { $regex: `.*${search}.*`} },
       options: {
         limit: limit,
@@ -104,9 +108,9 @@ class GroupsService {
     }
   }
 
-  async create({ owner, name, members }): Promise<GroupInterface> {
+  async create({ owner, name, notes }): Promise<GroupInterface> {
     try {
-      return await new this._group({ owner, name, members }).save();
+      return await new this._group({ owner, name, notes }).save();
     } catch (error) {
       if (error.name === "ValidationError") {
         Object.keys(error.errors).forEach((key) => {
