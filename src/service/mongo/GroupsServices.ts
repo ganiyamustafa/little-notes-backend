@@ -56,8 +56,6 @@ class GroupsService {
       }
     }).exec();
 
-    console.log('aaa');
-
     if (!groupNotes) {
       throw new NotFoundError('group not found');
     }
