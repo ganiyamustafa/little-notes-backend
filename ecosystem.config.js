@@ -4,7 +4,7 @@ module.exports = {
       name: "little-notes",
       script: "npm",
       automation: false,
-      args: "run pm2",
+      args: "run serve",
       env: {
         NODE_ENV: "development"
       },
