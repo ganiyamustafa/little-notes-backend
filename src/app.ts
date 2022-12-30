@@ -34,6 +34,6 @@ app.use('/health', healthcheck({
 app.use(json());
 app.use('/api', router);
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Timezones by location application is running on port ${port}.`);
 });
